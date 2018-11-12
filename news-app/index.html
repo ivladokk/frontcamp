@@ -15,21 +15,34 @@
                     <p class="filter-label">Enter keyword or phrase:</p>
                     <input type="text" class="keyword-input"/>
                 </div>
-                <div class="source-filter">
+                <div class="source">
                     <p class="filter-label">Choose source:</p>
                     <div id="sources-checked-list" class="sources-checked-list">
                         
                     </div>
-                    <button class="find-source-btn" onclick="showOrHideAllSources()">Find source...</button>
+                    <button class="find-source-btn" onclick="showOrHideAllSources()">Find source</button>
                     <div id="sources-all" class="sources-all hidden">
+                        <div class="source-filter">
+                            <select id="source-language">
+                            </select>
+                            <select id="source-country">
+                            </select>
+                            <select id="source-category">
+                            </select>
+                            <button onclick="getSrc()">get src</button>
+                        </div>
+                        <div id="sources-items" class="sources-items">
+                            
+                        </div>
 
                     </div>
                 </div>
                 <div class="language-filter">
                     <p class="filter-label">Choose language:</p>
-
+                    <select id="language">
+                    </select>
                 </div>
-                <button>Search</button>
+                <button onclick="getNews()">Search</button>
             </div>
             <div class="results">
                 <h3>Results:</h3>

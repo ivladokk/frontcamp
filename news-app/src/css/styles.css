@@ -10,7 +10,7 @@ body {
     padding: 10px;
 }
 
-.sources-all {
+.sources-items {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;

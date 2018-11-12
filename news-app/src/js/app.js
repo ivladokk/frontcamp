@@ -34,13 +34,14 @@ this.checkedSources = new Set();
 
 const fillSources = (filter)=> {
     dataService.getSourcesAsync(filter)
-        .then(res=>{
+        .then(res => {
             this.srcList = res.sources;
-            this.srcList.map(obj=>{
+            this.srcList.map(obj => {
                 let item = createSourceItem(obj);
-                let container = document.getElementsByClassName('sources-all');
+                let container = document.getElementsByClassName('sources-items');
                 container[0].appendChild(item);
             });
+           
         });
 }
 
@@ -89,8 +90,60 @@ const createCheckedSource = (item) => {
     return container;
 }
 
-let src = fillSources({language: "en"});
+const setDropdownValues = (el, src)=> {
+    for (let x of src) {
+        let item = document.createElement('option');
+        item.value = x;
+        item.text = x;
+        el.appendChild(item);
+    }
+}
 
+const init = ()=>{
+    setDropdownValues(document.getElementById('source-language'), config.languages);
+    setDropdownValues(document.getElementById('source-country'), config.countries);
+    setDropdownValues(document.getElementById('source-category'), config.categories);
+    setDropdownValues(document.getElementById('language'), config.languages);
+}
+document.addEventListener("DOMContentLoaded", init);
+//let src = fillSources({language: "en"});
+
+this.getSrc = function() {
+    let filter = {
+        language: document.getElementById('source-language').value,
+        category: document.getElementById('source-category').value,
+        country: document.getElementById('source-country').value
+    };
+    fillSources(filter);
+}
+
+const createNewsItem =(item) => {
+    let container = document.createElement('div');
+    container.classList.add('news-item');
+    container.id = item.id;
+    let name = document.createElement('span');
+    name.classList.add('news-name');
+    let nameText = document.createTextNode(item.name);
+    name.appendChild(nameText);
+    container.appendChild(name);
+    return container;   
+}
+
+const fillNews = (filter) => {
+    dataService.getNewsAsync(filter)
+        .then(resp => {
+            this.news = res.articles;
+            this.news.map(obj => {
+                let item = createNewsItem(obj);
+                let container = document.getElementsByClassName('results');
+                container[0].appendChild(item);
+            });
+        })
+}
+
+this.getNews = function() {
+    fillNews({});
+}
 
 
 
