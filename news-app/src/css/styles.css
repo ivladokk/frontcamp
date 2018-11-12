@@ -1,0 +1,37 @@
+body {
+    background: #fbfcfd;
+}
+
+.filter {
+    width: 80%;
+    margin: 0 auto;
+    background: rgb(255, 255, 255);
+    border: rgb(88, 88, 88) 1px solid;
+    padding: 10px;
+}
+
+.sources-all {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+}
+.source-item {
+    padding: 5px;
+    border: rgb(88, 88, 88) 1px solid;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.checked {
+    border-color: blue;
+}
+.source-checked-name {
+    font-weight: bold;
+}
+.hidden {
+    display: none;
+}
