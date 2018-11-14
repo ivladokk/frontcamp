@@ -7,27 +7,27 @@ class SourceSelector {
     getResultAsync() {
         this._openModal();
         var promise = new Promise((resolve, reject) =>{
-            $("#submint_src").click(()=>{ 
+            document.getElementById("submint_src").addEventListener("click", (event)=> {
                 this._closeModal();
                 resolve(this.selected);
-            });
-            $('#src_close').click(()=>{
+            }, false);
+            document.getElementById("src_close").addEventListener("click", (event)=>{
                 this._closeModal();
                 reject();
-            });
+            }, false);
          });
         return promise;
     }
 
     _openModal() {
         this._clearSrc();
-        var elements = $('.modal-overlay, .modal');
-        elements.addClass('active');
+        document.getElementById('overlay').classList.add('active');
+        document.getElementById('modal').classList.add('active');
     }
 
     _closeModal() {
-        var elements = $('.modal-overlay, .modal');
-        elements.removeClass('active');
+        document.getElementById('overlay').classList.remove('active');
+        document.getElementById('modal').classList.remove('active');
     }
 
 

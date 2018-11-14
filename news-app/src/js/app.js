@@ -59,7 +59,7 @@ this.selectSrc = function() {
         category: document.getElementById('source-category').value,
         country: document.getElementById('source-country').value
     };
-    $("#find_btn").click(()=> src.findSources(filter));
+    document.getElementById('find_btn').addEventListener("click", ()=> src.findSources(filter), false);
     src.getResultAsync().then(result=>{
         this.fillSelectedSources(result);
     }).catch(()=>{});
