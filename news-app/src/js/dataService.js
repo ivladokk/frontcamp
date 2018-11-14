@@ -23,13 +23,13 @@ class DataService {
             });
     }
 
-    getNewsAsync(filter) {
+    _getParams(filter) {
         let params = "";
         if (filter.q) {
-            params += params + "q=" + filter.language + "&";
+            params += params + "q=" + filter.q + "&";
         }
-        if (filter.sources) {
-            params+=params+"sources="+filter.sources.toString();
+        if (filter.sources && filter.sources.length>0) {
+            params+=params+"sources="+filter.sources.toString() + "&";
         }
         if (filter.language && filter.language!=="all") {
             params += params + "language=" + filter.language + "&";
@@ -40,7 +40,21 @@ class DataService {
         if (filter.category && filter.category!=="all") {
             params += params + "category=" + filter.country + "&";
         }
-        let url = `${this._config.apiUrl}/everything?${params}apiKey=${this._config.apiKey}`;
+        return params;
+    }
+
+    getNewsAsync(filter) {
+        
+        let url = `${this._config.apiUrl}/everything?${this._getParams(filter)}apiKey=${this._config.apiKey}`;
+        let request = new Request(url);
+        return fetch(request)
+            .then(resp=>{
+                return resp.json()
+            });
+    }
+
+    getTopNewsAsync(filter) {
+        let url = `${this._config.apiUrl}/top-headlines?${this._getParams(filter)}apiKey=${this._config.apiKey}`;
         let request = new Request(url);
         return fetch(request)
             .then(resp=>{

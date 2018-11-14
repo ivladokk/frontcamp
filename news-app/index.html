@@ -5,6 +5,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="src/js/config.js"></script>
         <script type="text/javascript" src="src/js/dataService.js"></script>
+        <script type="text/javascript" src="src/js/sources.js"></script>
+        <script type="text/javascript" src="src/js/news.js"></script>
         <script src="src/js/app.js" type="text/javascript" ></script>
         <link href="src/css/styles.css" rel="stylesheet">
     </head>
@@ -14,14 +16,14 @@
                 <h3>Filter:</h3>
                 <div class="keyword-filter">
                     <p class="filter-label">Enter keyword or phrase:</p>
-                    <input type="text" class="keyword-input"/>
+                    <input id="q" type="text" class="keyword-input"/>
                 </div>
                 <div class="source">
                     <p class="filter-label">Choose source:</p>
                     <div id="sources-checked-list" class="sources-checked-list">
                         
                     </div>
-                    <button class="button">Click For Modal</button>
+                    <button onclick="selectSrc()" class="button">Show Sources</button>
                 </div>
                 <div class="language-filter">
                     <p class="filter-label">Choose language:</p>
@@ -29,17 +31,18 @@
                     </select>
                 </div>
                 <button class="button" onclick="getNews()">Search</button>
+                <button class="button" onclick="getTopNews()">Top</button>
             </div>
-            <div class="results">
+            <div id ="results" class="results">
             </div>
         </div>
         
 
 <!-- modal -->
         <div class="modal-overlay">
-            <div class="modal">
+            <div id="modal" class="modal">
             
-                <a class="close-modal">
+                <a id="src_close" class="close-modal">
                 <svg viewBox="0 0 20 20">
                     <path fill="#000000" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
                 </svg>
@@ -54,13 +57,13 @@
                             </select>
                             <select id="source-category">
                             </select>
-                            <button class="button" onclick="getSrc()">Find</button>
+                            <button id="find_btn" class="button">Find</button>
                         </div>
                     </div>
                     <div id="sources-items" class="sources-items">
                     </div>
                     <div class="modal-footer">
-                        <button onclick="saveSrc()" class="button">Submit</button>
+                        <button id="submint_src" class="button">Submit</button>
                     </div>
                 </div><!-- content -->
             
