@@ -3,7 +3,7 @@ class DataService {
         this._config = config;
     }
     
-    getSourcesAsync(filter) {
+    async getSourcesAsync(filter) {
         let params = "";
         if (filter.language && filter.language!=="all") {
             params += params + "language=" + filter.language + "&";
@@ -15,12 +15,13 @@ class DataService {
             params += params + "category=" + filter.country + "&";
         }
         let url = `${this._config.apiUrl}/sources?${params}apiKey=${this._config.apiKey}`;
-        
         let request = new Request(url);
-        return fetch(request)
-            .then(resp=>{
-                return resp.json()
-            });
+        let response = await fetch(request);
+        if (response.ok) {
+           let data = await response.json();
+            return data; 
+        }
+        throw new Error(response.status)
     }
 
     _getParams(filter) {
@@ -43,22 +44,14 @@ class DataService {
         return params;
     }
 
-    getNewsAsync(filter) {
-        
-        let url = `${this._config.apiUrl}/everything?${this._getParams(filter)}apiKey=${this._config.apiKey}`;
+    async getNewsAsync(route, filter) {
+        let url = `${this._config.apiUrl}/${route}?${this._getParams(filter)}apiKey=${this._config.apiKey}`;
         let request = new Request(url);
-        return fetch(request)
-            .then(resp=>{
-                return resp.json()
-            });
-    }
-
-    getTopNewsAsync(filter) {
-        let url = `${this._config.apiUrl}/top-headlines?${this._getParams(filter)}apiKey=${this._config.apiKey}`;
-        let request = new Request(url);
-        return fetch(request)
-            .then(resp=>{
-                return resp.json()
-            });
+        let response = await fetch(request);
+        if (response.ok) {
+           let data = await response.json();
+            return data; 
+        }
+        throw new Error(response.status)
     }
 }

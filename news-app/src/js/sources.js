@@ -6,14 +6,14 @@ class SourceSelector {
 
     getResultAsync() {
         this._openModal();
-        var promise = new Promise((resolve, reject) =>{
+        let promise = new Promise((resolve, reject) =>{
             document.getElementById("submint_src").addEventListener("click", (event)=> {
                 this._closeModal();
                 resolve(this.selected);
             }, false);
             document.getElementById("src_close").addEventListener("click", (event)=>{
                 this._closeModal();
-                reject();
+                resolve([]);
             }, false);
          });
         return promise;
@@ -27,7 +27,7 @@ class SourceSelector {
 
     _closeModal() {
         document.getElementById('overlay').classList.remove('active');
-        document.getElementById('modal').classList.remove('active');
+        document.getElementById('modal').classList.remove('active'); 
     }
 
 
@@ -54,7 +54,8 @@ class SourceSelector {
     }
 
     findSources(filter) {
-        dataService.getSourcesAsync(filter)
+        Mask.show();
+        this.dataService.getSourcesAsync(filter)
             .then(res => {
                 this.selected.clear();
                 this._clearSrc();
@@ -63,7 +64,11 @@ class SourceSelector {
                     let item = this._createSourceItem(obj);
                     container.appendChild(item);
                 });
-            });
+            })
+            .catch(error=>{
+                alert(`Something went wrong...${error}`);
+            })
+            .finally(()=>Mask.hide());
     }
 
     _clearSrc() {

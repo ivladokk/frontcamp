@@ -4,35 +4,43 @@ class News {
     }
 
     getNews(filter) {
-        dataService.getNewsAsync(filter)
-        .then(res => {
-            if (res.articles) {
-                let container = document.getElementById('results');
-                while (container.firstChild) {
-                    container.removeChild(container.firstChild);
-                }
-                res.articles.map(obj => {
-                    let item = this._createNewsCard(obj);
-                    let container = document.getElementById('results');
-                    container.appendChild(item);
-                });
+        Mask.show();
+        this._dataService.getNewsAsync("everything", filter)
+        .then(data => {
+            if (data.articles) {
+                this._fillArticles(data.articles);
             }
-            
         })
+        .finally(()=>Mask.hide())
+        .catch(error => {
+            alert(`Something went wrong...${error}`);
+        });
     }
 
     getTopNews(filter) {
-        dataService.getTopNewsAsync(filter)
-        .then(res => {
-            if (res.articles) {
-                res.articles.map(obj => {
-                    let item = this._createNewsCard(obj);
-                    let container = document.getElementById('results');
-                    container.appendChild(item);
-                });
+        Mask.show();
+        this._dataService.getNewsAsync("top-headline", filter)
+        .then(data => {
+            if (data.articles) {
+                this._fillArticles(data.articles);
             }
-            
         })
+        .finally(()=>Mask.hide())
+        .catch(error => {
+            alert(`Something went wrong...${error}`);
+        });
+    }
+
+    _fillArticles(articles) {
+        let container = document.getElementById('results');
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+        articles.map(obj => {
+            let item = this._createNewsCard(obj);
+            let container = document.getElementById('results');
+            container.appendChild(item);
+        });
     }
 
     _createNewsCard(item) {
