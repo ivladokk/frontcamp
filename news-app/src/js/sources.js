@@ -2,6 +2,10 @@ class SourceSelector {
     constructor(dataService) {
         this.dataService = dataService;
         this.selected = new Set();
+        let btn = document.getElementById('find_btn');
+        let btnClone = btn.cloneNode(true);
+        btn.parentNode.replaceChild(btnClone, btn);
+        document.getElementById('find_btn').addEventListener("click", (event)=> this.findSources(), false);
     }
 
     getResultAsync() {
@@ -53,7 +57,12 @@ class SourceSelector {
         return container;
     }
 
-    findSources(filter) {
+    findSources() {
+        let filter = {
+            language: document.getElementById('source-language').value,
+            category: document.getElementById('source-category').value,
+            country: document.getElementById('source-country').value
+        };
         Mask.show();
         this.dataService.getSourcesAsync(filter)
             .then(res => {

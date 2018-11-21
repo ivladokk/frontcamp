@@ -3,9 +3,9 @@ class App {
         this.config = {
             apiUrl: "https://newsapi.org/v2/",
             apiKey: "788080c99995412c9c08fb95499225a2",
-            languages: ["all", "ar", "de", "en", "es", "fr", "he", "it", "nl", "no", "pt", "ru", "se", "ud", "zh"],
-            countries: ["all", "ae", "ar", "at", "au", "be", "bg", "br", "ca", "ch", "cn", "co", "cu", "cz", "de", "eg", "fr", "gb", "gr", "hk", "hu", "id", "ie", "il", "in", "it", "jp", "kr", "lt", "lv", "ma", "mx", "my", "ng", "nl", "no", "nz", "ph", "pl", "pt", "ro", "rs", "ru", "sa", "se", "sg", "si", "sk", "th", "tr", "tw", "ua", "us", "ve", "za"],
-            categories: ["all", "business", "entertainment", "general", "health", "science", "sports", "technology"]
+            languages: ["all", "ar", "de", "en", "es", "fr", "he", "it", "nl", "no", "pt", "ru", "se", "ud", "zh",],
+            countries: ["all", "ae", "ar", "at", "au", "be", "bg", "br", "ca", "ch", "cn", "co", "cu", "cz", "de", "eg", "fr", "gb", "gr", "hk", "hu", "id", "ie", "il", "in", "it", "jp", "kr", "lt", "lv", "ma", "mx", "my", "ng", "nl", "no", "nz", "ph", "pl", "pt", "ro", "rs", "ru", "sa", "se", "sg", "si", "sk", "th", "tr", "tw", "ua", "us", "ve", "za",],
+            categories: ["all", "business", "entertainment", "general", "health", "science", "sports", "technology",],
         };  
         this.dataService = new DataService(this.config);
         this.selectedSources = new Set();
@@ -50,12 +50,8 @@ class App {
 
     async selectSrc() {
         let src = new SourceSelector(this.dataService);
-        let filter = {
-            language: document.getElementById('source-language').value,
-            category: document.getElementById('source-category').value,
-            country: document.getElementById('source-country').value
-        };
-        document.getElementById('find_btn').addEventListener("click", ()=> src.findSources(filter), false);
+       
+        
         let result = await src.getResultAsync();
         if (result) {
             this._fillSelectedSources(result);
@@ -78,11 +74,12 @@ class App {
         for (let x of this.selectedSources) {
             sources.push(x.id);
         }
-        return {
+        let filter =  {
             q: document.getElementById('q').value,
             sources: sources,
             language: document.getElementById('language').value
         };
+        return {...filter};
     }
 
     getNews() {

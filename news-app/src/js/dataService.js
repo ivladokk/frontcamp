@@ -5,13 +5,13 @@ class DataService {
     
     async getSourcesAsync(filter) {
         let params = "";
-        if (filter.language && filter.language!=="all") {
+        if (filter.language && filter.language!=="all" && this._config.languages.includes(filter.language)) {
             params += params + "language=" + filter.language + "&";
         }
-        if (filter.country && filter.country!=="all" ) {
+        if (filter.country && filter.country!=="all" && this._config.countries.includes(filter.country)) {
             params += params + "country=" + filter.country + "&";
         }
-        if (filter.category && filter.category!=="all") {
+        if (filter.category && filter.category!=="all" && this._config.categories.includes(filter.category)) {
             params += params + "category=" + filter.country + "&";
         }
         let url = `${this._config.apiUrl}/sources?${params}apiKey=${this._config.apiKey}`;
