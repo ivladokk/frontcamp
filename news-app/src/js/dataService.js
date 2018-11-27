@@ -55,3 +55,5 @@ class DataService {
         throw new Error(response.status)
     }
 }
+
+module.exports = DataService;

@@ -1,3 +1,5 @@
+const Mask = require('./mask.js');
+
 class SourceSelector {
     constructor(dataService) {
         this.dataService = dataService;
@@ -88,3 +90,5 @@ class SourceSelector {
     }
     
 }
+
+module.exports = SourceSelector;

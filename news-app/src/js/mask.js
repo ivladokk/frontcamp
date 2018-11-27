@@ -8,3 +8,5 @@ class Mask {
         mask.classList.remove('show-mask');
     }
 }
+
+module.exports = Mask;

@@ -1,3 +1,5 @@
+const Mask = require('./mask.js');
+
 class News {
     constructor(dataService) {
         this._dataService = dataService;
@@ -87,3 +89,4 @@ class News {
     }
     
 }
+module.exports = News;

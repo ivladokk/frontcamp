@@ -1,3 +1,7 @@
+const DataService = require('./dataService.js');
+const News = require('./news.js');
+const SourceSelector = require('./sources.js');
+
 class App {
     constructor() {
         this.config = {
@@ -36,7 +40,7 @@ class App {
             let item = document.createElement('option');
             item.value = x;
             item.text = x;
-            el.appendChild(item);
+            el.appendChild(item);  
         }
     }
 
@@ -45,6 +49,8 @@ class App {
         this._setDropdownValues(document.getElementById('source-country'), this.config.countries);
         this._setDropdownValues(document.getElementById('source-category'), this.config.categories);
         this._setDropdownValues(document.getElementById('language'), this.config.languages);
+        document.getElementById('get_news').addEventListener("click", ()=> this.getNews(), false);
+        document.getElementById('get_top_news').addEventListener("click", ()=> this.getTopNews(), false);
         document.getElementById('select_src').addEventListener("click", ()=> this.selectSrc(), false);
     }
 
@@ -93,6 +99,7 @@ class App {
     }
 }
 
+module.exports = App;
 
 
 
