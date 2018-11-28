@@ -41,6 +41,6 @@ module.exports = {
         port: 10000
       },
   plugins: [
-    new ExtractTextPlugin('style.css')
+    new ExtractTextPlugin('cssbundle.css')
        ]
 };

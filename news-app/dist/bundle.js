@@ -165,7 +165,7 @@ eval("module.exports = {\"employee\":{\"name\":\"John\",\"city\":\"New York\"}};
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_base_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scss/base.scss */ \"./src/scss/base.scss\");\n/* harmony import */ var _scss_base_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_base_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _json_test_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./json/test.json */ \"./src/json/test.json\");\nvar _json_test_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./json/test.json */ \"./src/json/test.json\", 1);\n/* harmony import */ var _js_app_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/app.js */ \"./src/js/app.js\");\n\n\n\nvar app = new _js_app_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"]();\ndocument.addEventListener(\"DOMContentLoaded\", app.init.bind(app));\n\n//# sourceURL=webpack:///./src/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_base_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scss/base.scss */ \"./src/scss/base.scss\");\n/* harmony import */ var _scss_base_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_base_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _scss_news_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scss/news.scss */ \"./src/scss/news.scss\");\n/* harmony import */ var _scss_news_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_news_scss__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _scss_modal_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scss/modal.scss */ \"./src/scss/modal.scss\");\n/* harmony import */ var _scss_modal_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scss_modal_scss__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _scss_mask_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scss/mask.scss */ \"./src/scss/mask.scss\");\n/* harmony import */ var _scss_mask_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_scss_mask_scss__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _json_test_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./json/test.json */ \"./src/json/test.json\");\nvar _json_test_json__WEBPACK_IMPORTED_MODULE_4___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./json/test.json */ \"./src/json/test.json\", 1);\n/* harmony import */ var _js_app_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/app.js */ \"./src/js/app.js\");\n\n\n\n\n\n\nvar app = new _js_app_js__WEBPACK_IMPORTED_MODULE_5__[\"default\"]();\ndocument.addEventListener(\"DOMContentLoaded\", app.init.bind(app));\n\n//# sourceURL=webpack:///./src/main.js?");
 
 /***/ }),
 
@@ -177,6 +177,39 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scs
 /***/ (function(module, exports) {
 
 eval("// removed by extract-text-webpack-plugin\n\n//# sourceURL=webpack:///./src/scss/base.scss?");
+
+/***/ }),
+
+/***/ "./src/scss/mask.scss":
+/*!****************************!*\
+  !*** ./src/scss/mask.scss ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("// removed by extract-text-webpack-plugin\n\n//# sourceURL=webpack:///./src/scss/mask.scss?");
+
+/***/ }),
+
+/***/ "./src/scss/modal.scss":
+/*!*****************************!*\
+  !*** ./src/scss/modal.scss ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("// removed by extract-text-webpack-plugin\n\n//# sourceURL=webpack:///./src/scss/modal.scss?");
+
+/***/ }),
+
+/***/ "./src/scss/news.scss":
+/*!****************************!*\
+  !*** ./src/scss/news.scss ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("// removed by extract-text-webpack-plugin\n\n//# sourceURL=webpack:///./src/scss/news.scss?");
 
 /***/ })
 
