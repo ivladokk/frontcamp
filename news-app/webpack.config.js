@@ -11,24 +11,31 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/, 
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
-            loader: "babel-loader"
+          loader: "babel-loader",
+          options: {
+            presets:["@babel/preset-env"]
           }
+        }
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract(
+          {
+            fallback: 'style-loader',
+            use: ['css-loader', 'sass-loader']
+          })
+      },
+      {
+          test: /\.json/,
+          use: {
+            loader: path.resolve('my-loader.js')
+        }
       }
     ]
   },
-  module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
-        })
-      }]
-    },
   devServer: {
         inline:true,
         port: 10000
