@@ -1,4 +1,4 @@
-class DataService {
+export default class DataService {
     constructor(config) {
         this._config = config;
     }
@@ -55,5 +55,3 @@ class DataService {
         throw new Error(response.status)
     }
 }
-
-module.exports = DataService;

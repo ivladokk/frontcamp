@@ -1,6 +1,6 @@
-const Mask = require('./mask.js');
+import Mask from './mask.js';
 
-class SourceSelector {
+export default class SourceSelector {
     constructor(dataService) {
         this.dataService = dataService;
         this.selected = new Set();
@@ -90,5 +90,3 @@ class SourceSelector {
     }
     
 }
-
-module.exports = SourceSelector;

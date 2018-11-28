@@ -1,8 +1,8 @@
-const DataService = require('./dataService.js');
-const News = require('./news.js');
-const SourceSelector = require('./sources.js');
+import DataService from './dataService.js';
+import News from './news.js';
+import SourceSelector from './sources.js';
 
-class App {
+export default class App {
     constructor() {
         this.config = {
             apiUrl: "https://newsapi.org/v2/",
@@ -99,7 +99,6 @@ class App {
     }
 }
 
-module.exports = App;
 
 
 

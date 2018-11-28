@@ -1,6 +1,6 @@
-const Mask = require('./mask.js');
+import Mask from './mask.js';
 
-class News {
+export default class News {
     constructor(dataService) {
         this._dataService = dataService;
     }
@@ -89,4 +89,3 @@ class News {
     }
     
 }
-module.exports = News;
