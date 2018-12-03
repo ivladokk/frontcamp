@@ -1,4 +1,5 @@
 import Mask from './mask.js';
+import SingletonHandler from './errorHandler.js';
 
 export default class News {
     constructor(dataService) {
@@ -15,7 +16,7 @@ export default class News {
         })
         .finally(()=>Mask.hide())
         .catch(error => {
-            alert(`Something went wrong...${error}`);
+            SingletonHandler.getInstance().handleError(error);
         });
     }
 
@@ -29,7 +30,7 @@ export default class News {
         })
         .finally(()=>Mask.hide())
         .catch(error => {
-            alert(`Something went wrong...${error}`);
+            SingletonHandler.getInstance().handleError(error);
         });
     }
 

@@ -1,4 +1,5 @@
 import Mask from './mask.js';
+import SingletonHandler from './errorHandler.js';
 
 export default class SourceSelector {
     constructor(dataService) {
@@ -77,7 +78,7 @@ export default class SourceSelector {
                 });
             })
             .catch(error=>{
-                alert(`Something went wrong...${error}`);
+                SingletonHandler.getInstance().handleError(error);
             })
             .finally(()=>Mask.hide());
     }
