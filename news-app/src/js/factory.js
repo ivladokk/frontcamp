@@ -1,4 +1,4 @@
-class RequestsFactory {
+export default class RequestsFactory {
     constructor() {
         this.methods = {
             "GET": (url) => new Request(url),
@@ -13,7 +13,7 @@ class RequestsFactory {
     }
 }
 
-export default class RequestsProxy {
+class RequestsProxy {
     constructor() {
         this.factory = new RequestsFactory();
     }
