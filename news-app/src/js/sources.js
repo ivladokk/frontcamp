@@ -1,4 +1,5 @@
 import Mask from './mask.js';
+import importErrorHandler from './importHandler.js'
 
 export default class SourceSelector {
     constructor(dataService) {
@@ -77,14 +78,7 @@ export default class SourceSelector {
                 });
             })
             .catch(error=>{
-                import(
-                    /* webpackChunkName: "errorHandler" */ 
-                    /* webpackMode: "lazy" */
-                    './errorHandler.js')
-                    .then(module => {
-                        let handler = module.default;
-                        handler.getInstance().handleError(error);
-                    });
+                importErrorHandler().then(hanler => hanler.getInstance().handleError(error));
             })
             .finally(()=>Mask.hide());
     }

@@ -11,14 +11,16 @@ export default class HttpClientService {
         return response;
     }
 
-    sendPost(url, data) {
+    async sendPost(url, data) {
         let request = this._requestsFactory.create(url, "POST", data);
-        return request;
+        let response = await fetch(request);
+        return response;
     }
 
-    sendPut(url,data) {
+    async sendPut(url,data) {
         let request = this._requestsFactory.create(url, "PUT", data);
-        return request;
+        let response = await fetch(request);
+        return response;
     }
 
 }

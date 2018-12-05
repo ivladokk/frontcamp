@@ -1,5 +1,5 @@
 import Mask from './mask.js';
-//import errorHandler from './errorHandler.js';
+import importErrorHandler from './importHandler.js'
 
 export default class News {
     constructor(dataService) {
@@ -16,15 +16,13 @@ export default class News {
         })
         .finally(()=>Mask.hide())
         .catch(error => {
-            import(
-                /* webpackChunkName: "errorHandler" */ 
-                /* webpackMode: "lazy" */
-                './errorHandler.js')
-                .then(module => {
-                    let handler = module.default;
-                    handler.getInstance().handleError(error);
-                });
+           importErrorHandler().then(hanler => hanler.getInstance().handleError(error));
         });
+    }
+
+    async importErrorHandler() {
+        let module = await import(/* webpackChunkName: "errorHandler" */ /* webpackMode: "lazy" */'./errorHandler.js');
+        return module.default;
     }
 
     getTopNews(filter) {
@@ -37,15 +35,7 @@ export default class News {
         })
         .finally(()=>Mask.hide())
         .catch(error => {
-            import(
-            /* webpackChunkName: "errorHandler" */ 
-            /* webpackMode: "lazy" */
-            './errorHandler.js')
-            .then(module => {
-                let handler = module.default;
-                handler.getInstance().handleError(error);
-            });
-                
+            importErrorHandler().then(hanler => hanler.getInstance().handleError(error));
         });
     }
 

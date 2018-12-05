@@ -1,6 +1,10 @@
 export default class errorHandler {
     static instance
     constructor() {
+        if (errorHandler.instance) {
+            return errorHandler.instance;
+        }
+        errorHandler.instance = this;
         let template = `
         <div id="popup_overlay" class="modal-overlay">
             <div id="popup" class="modal">
@@ -19,13 +23,8 @@ export default class errorHandler {
         </div><!-- overlay -->`;
         let parser  = new DOMParser();
         let popup = parser.parseFromString(template, "text/xml");
-        document.getElementById("popup_container").innerHTML = template;//(popup.firstChild);
+        document.getElementById("popup_container").innerHTML = template;
         document.getElementById('popup_close').addEventListener("click", ()=> this._close(), false);
-        
-        if (errorHandler.instance) {
-            return errorHandler.instance;
-        }
-        errorHandler.instance = this;
     }
     static getInstance() {
         return new errorHandler();
@@ -35,7 +34,6 @@ export default class errorHandler {
         document.getElementById('popup_text').innerText = `Something went wrong...${msg}`;
         document.getElementById('popup_overlay').classList.add('active');
         document.getElementById('popup').classList.add('active');
-        //alert(`Something went wrong...${msg}`);
     }
 
     _close() {
