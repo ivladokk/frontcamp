@@ -78,7 +78,8 @@ export default class SourceSelector {
                 });
             })
             .catch(error=>{
-                SingletonHandler.getInstance().handleError(error);
+                let handler = new SingletonHandler();
+                handler.handleError(error);
             })
             .finally(()=>Mask.hide());
     }

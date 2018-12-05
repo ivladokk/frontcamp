@@ -1,5 +1,5 @@
 import Mask from './mask.js';
-import SingletonHandler from './errorHandler.js';
+import errorHandler from './errorHandler.js';
 
 export default class News {
     constructor(dataService) {
@@ -16,7 +16,8 @@ export default class News {
         })
         .finally(()=>Mask.hide())
         .catch(error => {
-            SingletonHandler.getInstance().handleError(error);
+            //let handler = SingletonHandler.getInstance();
+            //handler.handleError(error);
         });
     }
 
@@ -30,7 +31,17 @@ export default class News {
         })
         .finally(()=>Mask.hide())
         .catch(error => {
-            SingletonHandler.getInstance().handleError(error);
+            import(
+            /* webpackChunkName: "errorHandler" */ 
+            /* webpackMode: "lazy" */
+            './errorHandler.js')
+            .then(module => {
+                let handler = module.default;
+                handler.getInstance().handleError(error);
+            });
+                
+            /*let handler = SingletonHandler.getInstance();
+            handler.handleError(error);*/
         });
     }
 

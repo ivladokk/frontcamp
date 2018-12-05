@@ -12,7 +12,9 @@ const config = {
     main: './src/js/index.js'
   },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
+
     path: distPath
   },
   module: {
@@ -23,7 +25,16 @@ const config = {
       test: /\.js$/,
       exclude: /node_modules/,
       use: [{
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        options: {
+          "presets": [
+            "@babel/preset-env"
+          ],
+          "plugins": [
+            "@babel/plugin-proposal-class-properties",
+            "@babel/plugin-syntax-dynamic-import"
+          ]
+        }
       }]
     },       {
       test: /\.scss$/,
