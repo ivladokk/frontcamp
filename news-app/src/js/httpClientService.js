@@ -5,9 +5,10 @@ export default class HttpClientService {
         this._requestsFactory = requestsFactory;
     }
 
-    sendGet(url) {
+    async sendGet(url) {
         let request = this._requestsFactory.create(url, "GET");
-        return request;
+        let response = await fetch(request);
+        return response;
     }
 
     sendPost(url, data) {

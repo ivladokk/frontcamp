@@ -95,7 +95,7 @@ export default class App {
 
     getTopNews() {
         let news = new News(this.dataService);
-        news.getNews(this._combineFilter());
+        news.getTopNews(this._combineFilter());
     }
 }
 

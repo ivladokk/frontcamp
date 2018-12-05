@@ -1,9 +1,13 @@
+import RequestsFactory from './factory.js';
+import HttpClientService from './httpClientService.js';
 import HttpClientServiceProxy from './httpClientServiceProxy.js';
 
 export default class DataService {
     constructor(config) {
         this._config = config;
-        this.proxy = new HttpClientServiceProxy();
+        let factory = new  RequestsFactory();
+        let httpService = new HttpClientService(factory);
+        this.httpService = new HttpClientServiceProxy(httpService);
     }
     
     async getSourcesAsync(filter) {
@@ -19,8 +23,7 @@ export default class DataService {
         }
         let url = `${this._config.apiUrl}/sources?${params}apiKey=${this._config.apiKey}`;
 
-        let request = this.proxy.instance.conversation.get(url);
-        let response = await fetch(request);
+        let response = await this.httpService.sendGet(url);
         if (response.ok) {
            let data = await response.json();
             return data; 
@@ -50,8 +53,7 @@ export default class DataService {
 
     async getNewsAsync(route, filter) {
         let url = `${this._config.apiUrl}/${route}?${this._getParams(filter)}apiKey=${this._config.apiKey}`;
-        let request = this.proxy.instance.conversation.get(url);
-        let response = await fetch(request);
+        let response = await this.httpService.sendGet(url);
         if (response.ok) {
            let data = await response.json();
             return data; 

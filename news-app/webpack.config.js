@@ -31,7 +31,7 @@ const config = {
             "@babel/preset-env"
           ],
           "plugins": [
-            "@babel/plugin-proposal-class-properties",
+            ["@babel/plugin-proposal-class-properties", { "loose": true }],
             "@babel/plugin-syntax-dynamic-import"
           ]
         }

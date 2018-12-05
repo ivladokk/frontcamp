@@ -1,5 +1,4 @@
 import Mask from './mask.js';
-import SingletonHandler from './errorHandler.js';
 
 export default class SourceSelector {
     constructor(dataService) {
@@ -78,8 +77,14 @@ export default class SourceSelector {
                 });
             })
             .catch(error=>{
-                let handler = new SingletonHandler();
-                handler.handleError(error);
+                import(
+                    /* webpackChunkName: "errorHandler" */ 
+                    /* webpackMode: "lazy" */
+                    './errorHandler.js')
+                    .then(module => {
+                        let handler = module.default;
+                        handler.getInstance().handleError(error);
+                    });
             })
             .finally(()=>Mask.hide());
     }
