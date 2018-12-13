@@ -1,0 +1,43 @@
+1. How many “Chinese” (cuisine) restaurants are in “Queens” (borough)? 
+Query: db.restaurants.find({borough:"Queens",cuisine:"Chinese"}).count()
+Answer: 728 
+
+2. What is the _id of the restaurant which has the grade with the highest ever score? 
+
+Query: 
+function map() { for (var i in this.grades) {emit(this._id, this.grades[i])}}
+function reduce2(id, grades) {var sum=0; grades.forEach(x=>sum+=x.score); return sum}
+db.restaurants.mapReduce(map,reduce2,{out:"test"})
+
+Answer: ObjectId("5c0fcc3d0cbd4b231ef4c6d2")
+
+3. Add a grade { grade: "A", score: 7, date: ISODate() } to every restaurant in “Manhattan” (borough). 
+Query: db.restaurants.updateMany({borough:"Manhattan"},{$push:{"grades": {grade:"A",score:7,date:ISODate()}}})
+
+
+4. What are the names of the restaurants which have a grade at index 8 with score less then 7? Use projection to
+include only names without _id.
+Query: db.restaurants.aggregate([{$project:{_id:0,name:1,test:{$arrayElemAt:["$grades",7]}}},{$match:{"test.score":{"$lt":7}}},{$project:{test:0}}])
+Answer:
+{ "name" : "El Castillo De Madison" }
+{ "name" : "Vee'S Restaurant" }
+{ "name" : "Don Alex Restaurant" }
+{ "name" : "Gahm Mi Oak Restaurant" }
+{ "name" : "Au Za'Atar" }
+{ "name" : "Sunshine 27 Seafood Restaurant" }
+{ "name" : "New Chung Mee Restaurant" }
+{ "name" : "Lucky 11 Bakery" }
+{ "name" : "La Cueva Deli & Grocery" }
+{ "name" : "Kennedy Fried Chicken" }
+{ "name" : "New China Star" }
+{ "name" : "Hoy Wong Restaurant" }
+{ "name" : "Elena'S Restuarant" }
+
+
+5. What are _id and borough of “Seafood” (cuisine) restaurants which received at least one “B” grade in period from
+2014-02-01 to 2014-03-01? Use projection to include only _id and borough. 
+Query: db.restaurants.aggregate([{$match:{cuisine:"Seafood", grades:{$elemMatch:{grade:"B",date:{ $gte: ISODate("2014-02-01T00:00:00.000Z"),$lt: ISODate("2014-03-01T00:00:00.000Z")}}}}},{$project:{_id:1}}])
+Answer:
+{ "_id" : ObjectId("5c0fcc3d0cbd4b231ef49df7") }
+{ "_id" : ObjectId("5c0fcc3d0cbd4b231ef4a072") }
+
