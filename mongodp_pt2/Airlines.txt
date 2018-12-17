@@ -1,0 +1,32 @@
+1.db.airlines.aggregate([{$group:{_id:"$class",total:{$sum:1}}},{$project:{_id:0,class:"$_id", total:1}}])
+Result:
+{ "total" : 140343, "class" : "F" }
+{ "total" : 23123, "class" : "L" }
+{ "total" : 5683, "class" : "P" }
+{ "total" : 17499, "class" : "G" }
+
+2. db.airlines.aggregate([{$group:{_id: "$destCity",avgPassengers: {$avg:"$passengers"}}},{$sort:{avgPassengers: -1}},{$limit:1}])
+Result:
+{ "_id" : "Abu Dhabi, United Arab Emirates", "avgPassengers" : 8052.380952380952 }
+
+3.  db.airlines.aggregate([{$group:{_id: "$destCountry", carriers: {$push: "$carrier"}}},{$match:{_id:"Latvia"}}])
+Result:
+{ "_id" : "Latvia", "carriers" : [ "JetClub AG", "Blue Jet SP Z o o", "Uzbekistan Airways", "Uzbekistan Airways", "Uzbekistan Airways", "Uzbekistan Airways", "Uzbekistan Airways", "Uzbekistan Airways", "Uzbekistan Airways" ] }
+
+4. db.airlines.aggregate([{$match:{originCountry:"United States",destCountry:{$in:["Greece","Italy","Spain"]}}},{$group:{_id: "$carrier",total: {$sum: "$passengers"}}},{$sort:{total: -1}},{$limit:10},{$skip:3}])
+Result:
+{ "_id" : "Compagnia Aerea Italiana", "total" : 280256 }
+{ "_id" : "United Air Lines Inc.", "total" : 229936 }
+{ "_id" : "Emirates", "total" : 100903 }
+{ "_id" : "Air Europa", "total" : 94968 }
+{ "_id" : "Meridiana S.p.A", "total" : 20308 }
+{ "_id" : "Norwegian Air Shuttle ASA", "total" : 13344 }
+{ "_id" : "VistaJet Limited", "total" : 183 }
+
+5. db.airlines.aggregate([{$match:{originCountry:"United States"}},{$project:{state:"$originState", passengers:1, originCity:1, _id:0}},{$group:{_id: {city:"$originCity",state:"$state"},total: {$sum: "$passengers"}}},{$sort:{total:-1}}, {$project:{location:{state:"$_id.state",city:"$_id.city"},_id:0,total:1}},{$limit:5},{$sort:{"location.state":1}}])
+Result:
+{ "total" : 23701556, "location" : { "state" : "California", "city" : "Los Angeles, CA" } }
+{ "total" : 29416565, "location" : { "state" : "Georgia", "city" : "Atlanta, GA" } }
+{ "total" : 28035755, "location" : { "state" : "Illinois", "city" : "Chicago, IL" } }
+{ "total" : 25266639, "location" : { "state" : "New York", "city" : "New York, NY" } }
+{ "total" : 18408792, "location" : { "state" : "Texas", "city" : "Dallas/Fort Worth, TX" } }
