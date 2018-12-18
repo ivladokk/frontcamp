@@ -5,9 +5,9 @@ Result:
 { "total" : 5683, "class" : "P" }
 { "total" : 17499, "class" : "G" }
 
-2.  db.airlines.aggregate([{$match:{destCountry:{$ne:"United States"}}},{$group:{_id: "$destCity",avgPassengers: {$avg:"$passengers"}}},{$sort:{avgPassengers: -1}},{$limit:1}])
+2.  db.airlines.aggregate([{$match:{destCountry:{$ne:"United States"}}},{$group:{_id: "$destCity",avgPassengers: {$avg:"$passengers"}}},{$sort:{avgPassengers: -1}},{$limit:1},{$project:{avgPassengers:1, city:"$_id", _id:0}}])
 Result:
-{ "_id" : "Abu Dhabi, United Arab Emirates", "avgPassengers" : 8052.380952380952 }
+{ "avgPassengers" : 8052.380952380952, "city" : "Abu Dhabi, United Arab Emirates" }
 
 3.  db.airlines.aggregate([{$group:{_id: "$destCountry", carriers: {$addToSet: "$carrier"}}},{$match:{_id:"Latvia"}}])
 { "_id" : "Latvia", "carriers" : [ "Uzbekistan Airways", "Blue Jet SP Z o o", "JetClub AG" ] }
