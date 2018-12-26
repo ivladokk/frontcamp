@@ -22,7 +22,8 @@ Result:
 { "_id" : "Norwegian Air Shuttle ASA", "total" : 13344 }
 { "_id" : "VistaJet Limited", "total" : 183 }
 
-5.  db.airlines.aggregate([
+5.   
+ db.airlines.aggregate([
     {
         $match:
         {
@@ -39,42 +40,47 @@ Result:
     },
     {
         $group: {
-            _id: {
-                state:"$_id.state",
-                city:"$_id.city"
-            },
-            total: {
-              $max: "$total"
+            _id: "$_id.state",
+            values:{
+              $push:{
+                city:"$_id.city",
+                total:"$total"
+              }
             }
           }
     },
-    {
-        $sort: {
-            total: -1
-          }
+     {
+        $addFields: {
+    		values:	{
+    		    $let:{
+       				vars: { maxkey:{ $max:"$values.total"}},
+       				in: {$filter:{input: "$values",cond: {$eq:["$$this.total","$$maxkey"]}}}
+    				}
+    		    }
+  		    }
     },
     {
-        $limit:5
-    },
-    {
-        $sort: {
-            "_id.state": 1
-        }
-    },
-    {
-        $project: {
-            totalPassengers: "$total",
+        $project:{
+            totalPassengers:{$arrayElemAt:["$values.total",0]},
             location:{
-                state:"$_id.state",
-                city:"$_id.city"
+                state:"$_id",
+                city:{$arrayElemAt:["$values.city",0]}
             },
             _id:0
         }
+    },
+    {
+        $sort: {
+            "location.state":1
+        }
+    },
+    {
+        $limit:5
     }
  ])
 Result:
+{ "totalPassengers" : 760120, "location" : { "state" : "Alabama", "city" : "Birmingham, AL" } }
+{ "totalPassengers" : 1472404, "location" : { "state" : "Alaska", "city" : "Anchorage, AK" } }
+{ "totalPassengers" : 13152753, "location" : { "state" : "Arizona", "city" : "Phoenix, AZ" } }
+{ "totalPassengers" : 571452, "location" : { "state" : "Arkansas", "city" : "Little Rock, AR" } }
 { "totalPassengers" : 23701556, "location" : { "state" : "California", "city" : "Los Angeles, CA" } }
-{ "totalPassengers" : 29416565, "location" : { "state" : "Georgia", "city" : "Atlanta, GA" } }
-{ "totalPassengers" : 28035755, "location" : { "state" : "Illinois", "city" : "Chicago, IL" } }
-{ "totalPassengers" : 25266639, "location" : { "state" : "New York", "city" : "New York, NY" } }
-{ "totalPassengers" : 18408792, "location" : { "state" : "Texas", "city" : "Dallas/Fort Worth, TX" } }
