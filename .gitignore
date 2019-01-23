@@ -1,2 +1,4 @@
 news-app/node_modules/
 news-app/public/
+expressjs/myapp/node_modules/
+expressjs/myapp/.vscode/
