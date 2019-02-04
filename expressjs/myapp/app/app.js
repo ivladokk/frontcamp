@@ -1,26 +1,21 @@
 const path = require('path');
 const createError = require('http-errors');
 const express = require('express');
-const Article = require('./arcticle');
+const passport = require('passport');
 const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/news');
 const session = require('express-session');
-const MongoStore  = require('connect-mongo')(session);
+//const MongoStore  = require('connect-mongo');
 
 
 const app = express();
 
-require('./auth').initPassport(app);
+const Article = require('./arcticle')(mongoose);
+const User = require('./user')(mongoose);
 
-app.get('/', function(req, res) {
-  res.send('hello world');
-});
+require('./auth').initPassport(app, User);
 
 
-app.get('/profile',
-  require('connect-ensure-login').ensureLoggedIn(),
-  function(req, res){
-    res.render('profile', { user: req.user });
-  });
 
 app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
@@ -30,26 +25,17 @@ app.use(session({
   saveUninitialized: true,
   resave: true
 }));
-/*app.use(session({ 
-  secret: 'kuku', 
-  resave: true, 
-  saveUninitialized: true, 
-  store: new MongoStore({url:"mongodb://localhost/users"}),
-  autoRemove: 'native'
-}));
-*/
 
 
 
-require('./news').init(app, mongoose, Article);
+app.get('/', function(req, res) {
+  res.send('hello world');
+});
+
+require('./news').init(app, Article);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
-
-
-
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 

@@ -1,7 +1,7 @@
 const app = require('./app/app.js')
 const port = process.env.PORT || 3000
 
-var express = require('express');
+const express = require('express');
 
 
 // respond with "hello world" when a GET request is made to the homepage
