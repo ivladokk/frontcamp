@@ -1,0 +1,19 @@
+<form class="form-inline">
+        <div class="form-group mb-2">
+            <select [(ngModel)]="searchModel.source" [ngModelOptions]="{standalone: true}" class="custom-select my-dropdown">
+                <option *ngFor="let src of sources" value= {{src.id}}>
+                {{src.name}}
+                </option>
+            </select>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="inputPassword2" class="sr-only">Password</label>
+            <input [(ngModel)]="searchModel.keyword" [ngModelOptions]="{standalone: true}" type="text" placeholder="Type smth...">
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <input [(ngModel)]="searchModel.local" [ngModelOptions]="{standalone: true}" class="form-check-input" type="checkbox" id="inlineCheckbox1">
+            <label class="form-check-label" for="inlineCheckbox1">Only created by me</label>
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Find</button>
+        <button type="submit" class="btn btn-primary mb-2" routerLink="/add">Add</button>
+</form>

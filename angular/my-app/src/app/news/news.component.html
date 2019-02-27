@@ -1,0 +1,18 @@
+<h3>News</h3>
+<filter></filter>
+<div class="card-deck">
+    <div *ngFor="let article of news" class="card">
+      <img src="{{article.urlToImage}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{article.title}}</h5>
+        <p class="card-text">{{article.description}}</p>
+        <p class="card-text"><small class="text-muted">{{article.publishedAt}}</small></p>
+        <div class="btn-group center">
+            <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" routerLink="/article/{{article.id}}">View</a>
+            <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" routerLink="/detail/{{article.id}}">Edit</a>
+            <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true" (click)="delete(article.id)">Delete</a>
+        </div>
+      </div>
+    </div>
+</div>
+
