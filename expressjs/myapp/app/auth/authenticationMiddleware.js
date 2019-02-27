@@ -1,10 +1,6 @@
-const authenticationMiddleware  = () => {
-    return function (req, res, next) {
-      if (req.session && req.session.UserId) {
-        return next()
-      }
-      res.redirect('/login/facebook')
-    }
+const authenticationMiddleware  = (req, res, next) => {
+    req.loggedIn = !!req.user;
+    next();
   }
   
   module.exports = authenticationMiddleware

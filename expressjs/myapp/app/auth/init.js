@@ -4,12 +4,14 @@ const authenticationMiddleware = require('./authenticationMiddleware')
 const mongoose = require('mongoose');
 
 
-passport.serializeUser(function (user, cb) {
-    cb(null, user.UserId)
+passport.serializeUser(function (user, done) {
+  done(null, user.UserId)
   })
   
-  passport.deserializeUser(function (username, cb) {
-    cb(null, username)
+passport.deserializeUser(function (id, done) {
+      User.findById(id, function(err, user) {
+        done(err, user);
+    });
   })
 
 
@@ -19,25 +21,30 @@ const initPassport = (app, User)=> {
         clientSecret: "c9d52c006c5884a9b4f8a54056a56b1e",
         callbackURL: 'http://localhost:3000/login/return'
       },
-      function(accessToken, refreshToken, profile, cb) {
-        let user = new User({
-            _id: new mongoose.Types.ObjectId(),
-            UserName: profile.displayName,
-            UserId: profile.id
-          });
-        user.save(err=>{if (err) throw err;});
-        return cb(null, user);
+      function(accessToken, refreshToken, profile, done) {
+        User.findOne({ 'UserId' : profile.id }, function(err, user) {
+          if (err)
+              return done(err);
+          if (user) {
+              return done(null, user); 
+          } else {
+              let newUser = new User({
+                _id: new mongoose.Types.ObjectId(),
+                UserName: profile.displayName,
+                UserId: profile.id
+              });
+              
+              newUser.save(function(err) {
+                  if (err)
+                      throw err;
+                  return done(null, newUser);
+              });
+          }
+        });
       }));
 
       app.use(passport.initialize());
       app.use(passport.session());
-
-      app.get('/login/facebook', passport.authenticate('facebook'));
-
-      app.get('/login/return', passport.authenticate('facebook', { failureRedirect: '/login' }), function(req, res) {
-        req.session.UserId = req.user.UserId;
-        res.redirect('/news');
-      });
 
       passport.authenticationMiddleware = authenticationMiddleware;
 }
